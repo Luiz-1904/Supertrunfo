@@ -12,6 +12,7 @@ struct Carta{
     int turismo;
     float densidade;
     float pibPerCapita;
+    float superPoder;
 };
 
 void preencherCarta(Carta &carta, int numero){
@@ -40,6 +41,12 @@ void preencherCarta(Carta &carta, int numero){
 
     carta.densidade = carta.população / carta.área;
     carta.pibPerCapita = carta.pib * 1e9 / carta.população;
+    carta.superPoder = carta.população
+        + carta.área
+        + carta.pib
+        + carta.turismo
+        + carta.pibPerCapita
+        + (1 / carta.densidade);
 }
 
 void mostrarCarta(const Carta &carta){
@@ -55,6 +62,38 @@ void mostrarCarta(const Carta &carta){
     std::cout << "PIB per Capita: " << carta.pibPerCapita << "\n";
 }
 
+void compararCartas(const Carta& carta1, const Carta& carta2) {
+    std::cout << "\n=== Comparação de Cartas ===";
+
+    // População (maior vence)
+    bool popVence = carta1.população > carta2.população;
+    std::cout << "\nPopulação: Carta " << (popVence ? "1" : "2") << " venceu (" << popVence << ")";
+
+    // Área (maior vence)
+    bool areaVence = carta1.área > carta2.área;
+    std::cout << "\nÁrea: Carta " << (areaVence ? "1" : "2") << " venceu (" << areaVence << ")";
+
+    // PIB (maior vence)
+    bool pibVence = carta1.pib > carta2.pib;
+    std::cout << "\nPIB: Carta " << (pibVence ? "1" : "2") << " venceu (" << pibVence << ")";
+
+    // Pontos Turísticos (maior vence)
+    bool turismoVence = carta1.turismo > carta2.turismo;
+    std::cout << "\nPontos Turísticos: Carta " << (turismoVence ? "1" : "2") << " venceu (" << turismoVence << ")";
+
+    // Densidade Populacional (MENOR vence)
+    bool densidadeVence = carta1.densidade < carta2.densidade;
+    std::cout << "\nDensidade Populacional: Carta " << (densidadeVence ? "1" : "2") << " venceu (" << densidadeVence << ")";
+
+    // PIB per Capita (maior vence)
+    bool pibPerCapitaVence = carta1.pibPerCapita > carta2.pibPerCapita;
+    std::cout << "\nPIB per Capita: Carta " << (pibPerCapitaVence ? "1" : "2") << " venceu (" << pibPerCapitaVence << ")";
+
+    // Super Poder (maior vence)
+    bool superPoderVence = carta1.superPoder > carta2.superPoder;
+    std::cout << "\nSuper Poder: Carta " << (superPoderVence ? "1" : "2") << " venceu (" << superPoderVence << ")";
+}
+
 int main() {
      std::cout << "Bem vindo ao Super Trunfo de estados brasileiros \n"
     << "Você terá que inserir dados de duas cartas para jogar\n";
@@ -67,5 +106,7 @@ int main() {
     for(auto &carta : cartas){
         mostrarCarta(carta);
     }
+
+    compararCartas(cartas[0], cartas[1]);
     return 0;
 }
