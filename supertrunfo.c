@@ -11,6 +11,8 @@ struct Carta {
     float area;
     float pib;
     int turismo;
+    float densidade;
+    float pibPerCapita;
 };
 
 void removerQuebraDeLinha(char *str) {
@@ -41,12 +43,16 @@ void preencherCarta(struct Carta *carta, int numero) {
     printf("Insira a área da cidade do seu estado: ");
     scanf("%f", &carta->area);
 
-    printf("Insira o PIB da cidade do seu estado: ");
+    printf("Insira o PIB da cidade do seu estado (em bilhões): ");
     scanf("%f", &carta->pib);
 
     printf("Insira o número de pontos turísticos da cidade do seu estado: ");
     scanf("%d", &carta->turismo);
     getchar();
+
+
+    carta->densidade = carta->populacao / carta->area;
+    carta->pibPerCapita = (carta->pib * 1e9) / carta->populacao;
 }
 
 void mostrarCarta(const struct Carta *carta) {
@@ -58,6 +64,8 @@ void mostrarCarta(const struct Carta *carta) {
     printf("Área: %.2f km²\n", carta->area);
     printf("PIB: %.2f bilhões de reais\n", carta->pib);
     printf("Número de Pontos Turísticos: %d\n", carta->turismo);
+    printf("Densidade Populacional: %.2f hab/km²\n", carta->densidade);
+    printf("PIB per Capita: %.2f reais\n", carta->pibPerCapita);
 }
 
 int main() {

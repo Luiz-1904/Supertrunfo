@@ -10,6 +10,8 @@ struct Carta{
     float área;
     float pib;
     int turismo;
+    float densidade;
+    float pibPerCapita;
 };
 
 void preencherCarta(Carta &carta, int numero){
@@ -22,7 +24,7 @@ void preencherCarta(Carta &carta, int numero){
     std::getline(std::cin, carta.codigo);
 
     std::cout << "\n Insira o nome da cidade do seu estado: ";
-    std::getline(std::cin, carta.codigo);
+    std::getline(std::cin, carta.nome);
 
     std::cout << "\n Insira a população da cidade do seu estado: ";
     std::cin >> carta.população;
@@ -35,6 +37,9 @@ void preencherCarta(Carta &carta, int numero){
 
     std::cout << "\n Insira o número de pontos turísticos da cidade do seu estado: ";
     std::cin >> carta.turismo;
+
+    carta.densidade = carta.população / carta.área;
+    carta.pibPerCapita = carta.pib * 1e9 / carta.população;
 }
 
 void mostrarCarta(const Carta &carta){
@@ -46,6 +51,8 @@ void mostrarCarta(const Carta &carta){
     std::cout << "Área: " << carta.área << " km²\n";
     std::cout << "PIB: " << carta.pib << " bilhões de reais\n";
     std::cout << "Número de Pontos Turísticos: " << carta.turismo << "\n";
+    std::cout << "Densidade Populacional: " << carta.densidade << " hab/km²\n";
+    std::cout << "PIB per Capita: " << carta.pibPerCapita << "\n";
 }
 
 int main() {
